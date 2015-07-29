@@ -18,7 +18,7 @@ public class Problem51 {
 
         final long startTime = System.currentTimeMillis();
 
-        int prime = 829211, replacementNumberToBeFound = 8;
+        int prime = 1178377, replacementNumberToBeFound = 8;
         // 313087
 
         boolean found = false;
