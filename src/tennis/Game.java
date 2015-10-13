@@ -1,5 +1,6 @@
 package tennis;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -14,9 +15,9 @@ public class Game extends JPanel {
 
     private static int yDimension = 0;
 
-    private Ball ball;
+    public Ball ball;
 
-    private Paddle paddle;
+    public Paddle paddle;
 
     public Game() {
         this.paddle = new Paddle(60, 10, this);
@@ -38,6 +39,8 @@ public class Game extends JPanel {
         jframe.add(game);
         jframe.setSize(xDimension, yDimension);
         jframe.setVisible(true);
+        jframe.setBackground(Color.WHITE);
+        
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         while (true) {

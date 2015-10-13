@@ -2,6 +2,7 @@ package tennis;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -21,6 +22,10 @@ public class Paddle implements KeyListener {
         this.paddleHeight = paddleHeight;
         this.paddleWidth = paddleWidth;
         this.game = game;
+    }
+    
+    public int getPaddleHeightPosition(){
+    	return game.getHeight() - paddleHeight;
     }
 
     @Override
@@ -53,5 +58,9 @@ public class Paddle implements KeyListener {
         if (x + xMovement > 0 && x + xMovement < game.getWidth() - paddleWidth)
             x += xMovement;
     }
+    
+    public Rectangle getBounds() {
+		return new Rectangle(x, getPaddleHeightPosition(), paddleWidth, paddleHeight);
+	}
 
 }
