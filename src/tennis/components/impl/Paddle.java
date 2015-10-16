@@ -19,6 +19,8 @@ public class Paddle implements KeyListener, TennisComponent {
 
     private int paddleHeight;
 
+    private boolean needsToBeUpdated;
+
     private GameController gameController;
 
     public Paddle(int paddleWidth, int paddleHeight, GameController gameController) {
@@ -40,12 +42,14 @@ public class Paddle implements KeyListener, TennisComponent {
             xMovement = -1;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
             xMovement = 1;
+
+        needsToBeUpdated = true;
     }
 
     @Override
     public void keyReleased(KeyEvent arg0) {
         xMovement = 0;
-
+        needsToBeUpdated = true;
     }
 
     @Override
@@ -72,6 +76,12 @@ public class Paddle implements KeyListener, TennisComponent {
     @Override
     public void update() {
         movePaddle();
+        needsToBeUpdated = false;
+    }
+
+    @Override
+    public boolean needsToBeUpdate() {
+        return needsToBeUpdated;
     }
 
 }

@@ -8,4 +8,6 @@ public interface TennisComponent {
 
     public void update();
 
+    public boolean needsToBeUpdate();
+
 }

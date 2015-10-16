@@ -1,13 +1,14 @@
 package tennis.flow;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import tennis.components.TennisComponent;
 import tennis.components.impl.Ball;
 import tennis.components.impl.Paddle;
 
@@ -19,10 +20,15 @@ public class GameController extends JPanel {
 
     private Paddle paddle;
 
+    private LinkedList<TennisComponent> componentList;
+
     public GameController() {
         this.paddle = new Paddle(60, 10, this);
         this.ball = new Ball(30, 1, this);
         this.setBackground(Color.WHITE);
+        componentList = new LinkedList();
+        componentList.add(paddle);
+        componentList.add(ball);
     }
 
     public Ball getBall() {
@@ -33,30 +39,29 @@ public class GameController extends JPanel {
         return paddle;
     }
 
+    /**
+     * Main method to be run to execute threads and game flow.
+     * 
+     * @throws InterruptedException
+     */
     public void runGameFlow() throws InterruptedException {
-        while (true) {
-            move();
-            paint(getGraphics());
-            Thread.sleep(4);
-        }
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Updater updater = new Updater(componentList);
+        Render render = new Render(componentList, getGraphics());
+        //setBallTimer(5);
+        executor.execute(updater);
+        executor.execute(render);
+
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        ball.paint(g2d);
-        paddle.paint(g2d);
-    }
-
-    private void move() {
-        //        ball.moveBall();
-        //        paddle.movePaddle();
-    }
+    //    private void setBallTimer(long speed) throws InterruptedException {
+    //        ball.setUpdate(true);
+    //        Thread.sleep(speed);
+    //    }
 
     public void gameOver() {
         JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }
+
 }
