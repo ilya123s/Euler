@@ -13,7 +13,8 @@ public class BagOfHolding {
 
     /**
      * Takes the list of items and packs it to have the highest value possible
-     * for a given capacity. Items that exceed the capacity will be removed.
+     * for a given capacity. Items that exceed the capacity will or are null are
+     * removed.
      * 
      * @param items
      * @param capacity
@@ -27,7 +28,7 @@ public class BagOfHolding {
             int totalItemsSize = 0;
             Item item = null;
             Iterator<Item> itr = null;
-            
+
             // get the iterator to be able to loop through the list safely.
             itr = items.iterator();
 
@@ -42,8 +43,9 @@ public class BagOfHolding {
             // method. Will sort by descending order with highest valuePreSize
             // coming first.
             Collections.sort(items);
-            
-            //re-retrieve the updated iterator as elements may have been removed.
+
+            // re-retrieve the updated iterator as elements may have been
+            // removed.
             itr = items.iterator();
 
             // while the next element is present
