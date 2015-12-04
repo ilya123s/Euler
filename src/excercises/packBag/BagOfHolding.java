@@ -19,21 +19,32 @@ public class BagOfHolding {
      * @param capacity
      * @return The List of items packed efficiently
      */
-    public static List<Item> packBag(List<Item> items, int capacity) {
+    public static void packBag(List<Item> items, int capacity) {
 
         // check list is not null or empty, otherwise logic will not work.
         if (null != items && !items.isEmpty()) {
 
             int totalItemsSize = 0;
             Item item = null;
+            Iterator<Item> itr = null;
+            
+            // get the iterator to be able to loop through the list safely.
+            itr = items.iterator();
 
-            // sorts the list of items by using it's overridden compareTo
+            // Iterate through the list and remove any null elements in the list
+            while (itr.hasNext()) {
+                if (null == itr.next()) {
+                    itr.remove();
+                }
+            }
+
+            // Sorts the list of items by using it's overridden compareTo
             // method. Will sort by descending order with highest valuePreSize
             // coming first.
             Collections.sort(items);
-
-            // get the iterator to be able to loop through the list safely.
-            Iterator<Item> itr = items.iterator();
+            
+            //re-retrieve the updated iterator as elements may have been removed.
+            itr = items.iterator();
 
             // while the next element is present
             while (itr.hasNext()) {
@@ -41,29 +52,23 @@ public class BagOfHolding {
                 // Get the next item in the list.
                 item = itr.next();
 
-                //Check that this item is not null
-                if (null != item) {
-                    
-                    // check whether the item's size will take the list size
-                    // over the capacity.
-                    if ((totalItemsSize + item.size) <= capacity) {
+                // check whether the item's size will take the list size
+                // over the capacity.
+                if ((totalItemsSize + item.size) <= capacity) {
 
-                        // if it doesn't then add the size of the items to the
-                        // overall list size
-                        totalItemsSize += item.size;
+                    // if it doesn't then add the size of the items to the
+                    // overall list size
+                    totalItemsSize += item.size;
 
-                    } else {
-                        
-                        // otherwise if this item doesn't fit in the list
-                        // without going over the capacity then remove it from the list.
-                        itr.remove();
-                    }
+                } else {
+
+                    // otherwise if this item doesn't fit in the list
+                    // without going over the capacity then remove it from the
+                    // list.
+                    itr.remove();
                 }
             }
         }
-
-        return items;
-
     }
 
     public static class Item implements Comparable<Item> {
@@ -92,8 +97,8 @@ public class BagOfHolding {
 
         /**
          * Compares this item to another by it's value pre size ratio. Will
-         * return negative if this is larger or positive if this is smaller than the
-         * argument in order to sort the items in descending order.
+         * return negative if this is larger or positive if this is smaller than
+         * the argument in order to sort the items in descending order.
          */
         @Override
         public int compareTo(Item item) {

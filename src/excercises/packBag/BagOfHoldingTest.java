@@ -76,7 +76,7 @@ public class BagOfHoldingTest {
             }
         }
 
-        items = bagOfHolding.packBag(items, 11);
+        bagOfHolding.packBag(items, 11);
 
         System.out.println("\n----SORT REMOVE-----\n");
 
