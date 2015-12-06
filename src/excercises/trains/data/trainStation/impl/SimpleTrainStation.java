@@ -1,9 +1,13 @@
-package excercises.trains;
+package excercises.trains.data.trainStation.impl;
 
 import java.util.List;
 
+import excercises.trains.data.Route;
+import excercises.trains.data.trainStation.TrainStation;
+
 /**
- * Simple train station implementation
+ * Simple train station implementation. Contains the station name and all the
+ * routes from this station.
  * 
  * @author Ilya
  *
