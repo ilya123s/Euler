@@ -1,6 +1,6 @@
 package excercises.trains.testTrainExpress;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -27,6 +27,7 @@ public class TrainExpressTest {
 	
 	@Test
 	public void testAtoB(){
+	    System.out.println("--- A to B");
 		List<Route> result = classUnderTest.getFastestRroute(stations.get(0), stations.get(1));
 		System.out.println("--- A to B");
 		for (Route route : result) {
@@ -38,6 +39,7 @@ public class TrainExpressTest {
 
 	@Test
 	public void testAtoC(){
+	    System.out.println("--- A to C");
 		List<Route> result = classUnderTest.getFastestRroute(stations.get(0), stations.get(2));
 		System.out.println("--- A to C");
 		for (Route route : result) {
@@ -49,6 +51,7 @@ public class TrainExpressTest {
 
 	@Test
 	public void testAtoD(){
+	    System.out.println("--- A to D");
 		List<Route> result = classUnderTest.getFastestRroute(stations.get(0), stations.get(3));
 		System.out.println("--- A to D");
 		for (Route route : result) {
@@ -60,6 +63,7 @@ public class TrainExpressTest {
 
 	@Test
 	public void testAtoE(){
+	    System.out.println("--- A to E");
 		List<Route> result = classUnderTest.getFastestRroute(stations.get(0), stations.get(4));
 		System.out.println("--- A to E");
 		for (Route route : result) {

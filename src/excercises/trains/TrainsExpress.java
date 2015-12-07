@@ -45,9 +45,10 @@ public class TrainsExpress {
 		List<Route> stationRoutes = origin.getRoutes();
 
 		TrainStation routeDestination;
-
+		int x = 0;
 		for (Route route : stationRoutes) {
-
+		    
+		    System.out.println("recusrion top " + x);
 			routeDestination = route.getDestination();
 			quickestRoute = new ArrayList<Route>();
 
@@ -63,6 +64,7 @@ public class TrainsExpress {
 			} else {
 				quickestRoute.addAll(findQuickestRoute(routeDestination, destination, visitedStations));
 			}
+			System.out.println("recusrion bottom " + x);
 
 			if (visitedStations.contains(destination) && (visitedStations.size() - 1 == quickestRoute.size())) {
 				if (calculateRouteDuration(fastestRoute) > calculateRouteDuration(quickestRoute)
@@ -72,6 +74,8 @@ public class TrainsExpress {
 
 				visitedStations.clear();
 			}
+			
+			x++;
 
 		}
 
