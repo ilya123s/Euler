@@ -1,6 +1,6 @@
 package euler;
 
-import org.apache.commons.lang3.ArrayUtils;
+//import org.apache.commons.lang3.ArrayUtils;
 
 public class Problem11 {
 
@@ -56,7 +56,7 @@ public class Problem11 {
                 { 01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,
                         01, 89, 19, 67, 48 } };
 
-        ArrayUtils.reverse(grid);
+        //ArrayUtils.reverse(grid);
         find();
         System.out.println("total = " + total);
 

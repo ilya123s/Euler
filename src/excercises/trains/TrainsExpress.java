@@ -32,54 +32,42 @@ public class TrainsExpress {
 
 	public List<Route> getFastestRroute(TrainStation origin, TrainStation destination) {
 		fastestRoute.clear();
-		findQuickestRoute(origin, destination, new ArrayList<>());
+		findQuickestRoute(origin, destination, new ArrayList<>(), new ArrayList<>());
 		return this.fastestRoute;
 	}
 
-	private List<Route> findQuickestRoute(TrainStation origin, TrainStation destination,
-			List<TrainStation> visitedStations) {
-
-		System.out.println(origin.getStationName() + " > " + destination.getStationName());
-		List<Route> quickestRoute = null;
+	private void findQuickestRoute(TrainStation origin, TrainStation destination, List<TrainStation> visitedStations,
+			List<Route> calculatedRoute) {
 
 		List<Route> stationRoutes = origin.getRoutes();
+		visitedStations.add(origin);
 
 		TrainStation routeDestination;
-		int x = 0;
 		for (Route route : stationRoutes) {
-		    
-		    System.out.println("recusrion top " + x);
+
 			routeDestination = route.getDestination();
-			quickestRoute = new ArrayList<Route>();
 
 			if (visitedStations.contains(routeDestination)) {
 				continue;
 			}
 
-			quickestRoute.add(route);
-			visitedStations.add(origin);
+			calculatedRoute.add(route);
 
 			if (routeDestination == destination) {
-				visitedStations.add(destination);
-			} else {
-				quickestRoute.addAll(findQuickestRoute(routeDestination, destination, visitedStations));
-			}
-			System.out.println("recusrion bottom " + x);
-
-			if (visitedStations.contains(destination) && (visitedStations.size() - 1 == quickestRoute.size())) {
-				if (calculateRouteDuration(fastestRoute) > calculateRouteDuration(quickestRoute)
+				if (calculateRouteDuration(fastestRoute) > calculateRouteDuration(calculatedRoute)
 						|| fastestRoute.isEmpty()) {
-					fastestRoute = quickestRoute;
+					fastestRoute = new ArrayList<>(calculatedRoute);
 				}
-
-				visitedStations.clear();
+				calculatedRoute.remove(route);
+			} else {
+				findQuickestRoute(routeDestination, destination, visitedStations, calculatedRoute);
 			}
-			
-			x++;
+			calculatedRoute.remove(route);
 
 		}
 
-		return quickestRoute;
+		visitedStations.remove(origin);
+		calculatedRoute.removeAll(stationRoutes);
 
 	}
 
